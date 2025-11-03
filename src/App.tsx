@@ -1,4 +1,6 @@
+import {useState} from "react";
 import './App.css'
+
 
 const tracks = [
     {
@@ -18,9 +20,19 @@ const tracks = [
     },
 
 ]
-const selectedTrackId = 1
 
 function App() {
+
+    const [selectedTrackId, setSelectedTrackId] = useState<number | null>(null)
+
+    const changeSelectedTrackId = (trackId: number | null) => {
+        if (trackId === selectedTrackId) {
+            setSelectedTrackId(null)
+        } else {
+            setSelectedTrackId(trackId)
+        }
+
+    }
 
     return (
         <>
@@ -33,7 +45,9 @@ function App() {
                         {tracks.map((track) => (
                             <li key = {track.id}
                                 style = {{border: selectedTrackId === track.id ? '1px solid orange' : 'none'}}>
-                                <div>{track.title}</div>
+                                <div onClick = {() => {
+                                    changeSelectedTrackId(track.id)
+                                }}>{track.title}</div>
                                 <audio controls src = {track.url}></audio>
                             </li>
                         ))}
