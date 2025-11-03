@@ -18,9 +18,10 @@ const tracks = [
     },
 
 ]
+const selectedTrackId = 1
 
 function App() {
-    const selectedTrackId = 1
+
     return (
         <>
             <h1>MusicFun player</h1>
