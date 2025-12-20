@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
+import {TrackItem} from "./TrackItem.tsx";
 
-export const TracksList = () => {
+export const TracksList = ({changeSelectedTrackId, selectedTrackId}) => {
     const [tracks, setTracks] = useState([])
-    const [selectedTrackId, setSelectedTrackId] = useState(null)
 
     useEffect(() => {
         fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks',
@@ -29,15 +29,12 @@ export const TracksList = () => {
     }
     return <ul>
         {tracks.map((track) => (
-            <li key = {track.id}
-                style = {{border: selectedTrackId === track.id ? '1px solid orange' : 'none'}}
-            >
-                <div onClick = {() => {
-                    setSelectedTrackId(track.id)
-                    // setSelectedTrack(track)
-                }}>{track.attributes.title}</div>
-                <audio controls src = {track.attributes.attachments[0].url}></audio>
-            </li>
+            <TrackItem
+                key = {track.id}
+                selectedTrackId={selectedTrackId}
+                track = {track}
+                changeSelectedTrackId = {changeSelectedTrackId}
+            />
         ))}
     </ul>
 }

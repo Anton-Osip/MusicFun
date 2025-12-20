@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
 
-export const TrackDetails = () => {
+export const TrackDetails = ({selectedTrackId}) => {
     const [selectedTrack, setSelectedTrack] = useState(null)
-    const selectedTrackId = null
     useEffect(() => {
         if (!selectedTrackId) return
         fetch(`https://musicfun.it-incubator.app/api/1.0/playlists/tracks/${selectedTrackId}`,

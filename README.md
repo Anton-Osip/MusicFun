@@ -1,5 +1,5 @@
 # React + TypeScript + Vite
-
+GIT_SSH_COMMAND="ssh -i ~/.ssh/anton_github" git push origin master
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
