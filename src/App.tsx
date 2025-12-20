@@ -1,82 +1,24 @@
-import {useEffect, useState} from "react";
 import './App.css'
+import {TracksList} from "./components/TracksList.tsx";
+import {TrackDetails} from "./components/TrackDetails.tsx";
+import {Header} from "./components/Header.tsx";
+import {SidebarMenu} from "./components/SidebarMenu.tsx";
+import {PageTitle} from "./components/PageTitle.tsx";
+import {Footer} from "./components/Footer.tsx";
 
 
 function App() {
-    const [selectedTrack, setSelectedTrack] = useState(null)
-    const [selectedTrackId, setSelectedTrackId] = useState(null)
-    const [tracks, setTracks] = useState([])
-
-    useEffect(() => {
-        fetch('https://musicfun.it-incubator.app/api/1.0/playlists/tracks',
-            {
-                headers: {
-                    'api-key': '6658d6dc-bb62-4b5e-9850-168b231c09b5'
-                }
-            }
-        )
-            .then(res => res.json())
-            .then(data => setTracks(data.data))
-    }, [])
-
-    useEffect(() => {
-        if (!selectedTrackId) return
-        fetch(`https://musicfun.it-incubator.app/api/1.0/playlists/tracks/${selectedTrackId}`,
-            {
-                headers: {
-                    'api-key': '6658d6dc-bb62-4b5e-9850-168b231c09b5'
-                }
-            }
-        )
-            .then(res => res.json())
-            .then(data => setSelectedTrack(data.data))
-
-    }, [selectedTrackId])
-
 
     return (
         <>
-            <h1>MusicFun player</h1>
-            {tracks.length === null
-                ? <span>Loading...</span>
-                : tracks.length === 0
-                    ? <span>No tracks</span>
-
-                    : <div style = {{display: 'flex', gap: '10px', justifyContent: 'space-between'}}>
-
-                        <div>
-                            <button onClick = {() => {
-                                setSelectedTrack(null)
-                                setSelectedTrackId(null)
-                            }}>reselect
-                            </button>
-                            <ul>
-                                {tracks.map((track) => (
-                                    <li key = {track.id}
-                                        style = {{border: selectedTrackId === track.id ? '1px solid orange' : 'none'}}>
-                                        <div onClick = {() => {
-                                            setSelectedTrackId(track.id)
-                                            setSelectedTrack(track)
-                                        }}>{track.attributes.title}</div>
-                                        <audio controls src = {track.attributes.attachments[0].url}></audio>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <div>
-                            <h2>Details</h2>
-                            {!selectedTrack && !selectedTrackId && 'track is not selected'}
-                            {!selectedTrack && selectedTrackId && 'Loading...'}
-                            {selectedTrack && selectedTrackId && selectedTrack.id !== selectedTrackId && 'Loading...'}
-                            {selectedTrack && <div>
-                                <h3>{selectedTrack.attributes.title}</h3>
-                                <h4>lyrics</h4>
-                                <p>{selectedTrack.attributes.lyrics ?? 'no lyrics'}</p>
-                            </div>}
-
-                        </div>
-                    </div>}
-
+            <Header/>
+            <SidebarMenu/>
+            <PageTitle/>
+            <div style = {{display: 'flex'}}>
+                <TracksList/>
+                <TrackDetails/>
+            </div>
+            <Footer/>
         </>
     )
 }
