@@ -19,6 +19,20 @@ function App() {
             .then(data => setTracks(data.data))
     }, [])
 
+    useEffect(() => {
+        if (!selectedTrackId) return
+        fetch(`https://musicfun.it-incubator.app/api/1.0/playlists/tracks/${selectedTrackId}`,
+            {
+                headers: {
+                    'api-key': '6658d6dc-bb62-4b5e-9850-168b231c09b5'
+                }
+            }
+        )
+            .then(res => res.json())
+            .then(data => setSelectedTrack(data.data))
+
+    }, [selectedTrackId])
+
 
     return (
         <>
@@ -42,15 +56,6 @@ function App() {
                                         style = {{border: selectedTrackId === track.id ? '1px solid orange' : 'none'}}>
                                         <div onClick = {() => {
                                             setSelectedTrackId(track.id)
-                                            fetch(`https://musicfun.it-incubator.app/api/1.0/playlists/tracks/${track.id}`,
-                                                {
-                                                    headers: {
-                                                        'api-key': '6658d6dc-bb62-4b5e-9850-168b231c09b5'
-                                                    }
-                                                }
-                                            )
-                                                .then(res => res.json())
-                                                .then(data => setSelectedTrack(data.data))
                                             setSelectedTrack(track)
                                         }}>{track.attributes.title}</div>
                                         <audio controls src = {track.attributes.attachments[0].url}></audio>
