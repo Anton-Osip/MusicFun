@@ -9,10 +9,10 @@ import {useState} from "react";
 
 
 function App() {
-    const [selectedTrackId, setSelectedTrackId] = useState(null)
+    const [trackId, setTrackId] = useState(null)
 
-    const changeSelectedTrackId = (trackId) => {
-        setSelectedTrackId(trackId)
+    const onSelectedTrackId = (trackId) => {
+        setTrackId(trackId)
     }
 
     return (
@@ -21,8 +21,8 @@ function App() {
             <SidebarMenu/>
             <PageTitle/>
             <div style = {{display: 'flex'}}>
-                <TracksList changeSelectedTrackId={changeSelectedTrackId} selectedTrackId={selectedTrackId}/>
-                <TrackDetails selectedTrackId={selectedTrackId}/>
+                <TracksList onSelectedTrackId = {onSelectedTrackId} trackId = {trackId}/>
+                <TrackDetails trackId = {trackId}/>
             </div>
             <Footer/>
         </>

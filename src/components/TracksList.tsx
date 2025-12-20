@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {TrackItem} from "./TrackItem.tsx";
 
-export const TracksList = ({changeSelectedTrackId, selectedTrackId}) => {
+export const TracksList = ({onSelectedTrackId, trackId}) => {
     const [tracks, setTracks] = useState([])
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export const TracksList = ({changeSelectedTrackId, selectedTrackId}) => {
             }
         )
             .then(res => res.json())
-            .then(data => setTracks(data.data))
+            .then(data => setTracks(data.data || null))
     }, [])
 
     if (tracks === null) {
@@ -27,14 +27,30 @@ export const TracksList = ({changeSelectedTrackId, selectedTrackId}) => {
             <span>No track</span>
         </div>
     }
-    return <ul>
-        {tracks.map((track) => (
-            <TrackItem
-                key = {track.id}
-                selectedTrackId={selectedTrackId}
-                track = {track}
-                changeSelectedTrackId = {changeSelectedTrackId}
-            />
-        ))}
-    </ul>
+    const handleReset = () => {
+        onSelectedTrackId(null)
+    }
+    const handleClick = (trackId) => {
+        onSelectedTrackId(trackId)
+    }
+
+    return (
+        <div>
+            <button onClick = {handleReset}>
+                RESET
+            </button>
+            <hr/>
+            <ul>
+                {tracks.map((track) => (
+                        <TrackItem
+                            key = {track.id}
+                            isSelected = {trackId === track.id}
+                            track = {track}
+                            onSelect = {handleClick}
+                        />
+                    )
+                )}
+            </ul>
+        </div>
+    )
 }

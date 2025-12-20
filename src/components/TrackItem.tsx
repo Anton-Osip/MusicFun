@@ -1,8 +1,9 @@
-export const TrackItem = ({track, selectedTrackId, changeSelectedTrackId}) => {
+export const TrackItem = ({track, isSelected, onSelect}) => {
+
     return (
-        <li style = {{border: selectedTrackId === track.id ? '1px solid orange' : 'none'}}>
+        <li style = {{border: isSelected ? '1px solid orange' : 'none'}}>
             <div onClick = {() => {
-                changeSelectedTrackId(track.id)
+                onSelect(track.id)
             }}>{track.attributes.title}</div>
             <audio controls src = {track.attributes.attachments[0].url}></audio>
         </li>)
