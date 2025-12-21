@@ -9,9 +9,9 @@ import {useState} from "react";
 
 
 function App() {
-    const [trackId, setTrackId] = useState(null)
+    const [trackId, setTrackId] = useState<string | null>(null)
 
-    const onSelectedTrackId = (trackId) => {
+    const onSelectedTrackId = (trackId: string | null) => {
         setTrackId(trackId)
     }
 
