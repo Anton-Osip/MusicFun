@@ -1,10 +1,10 @@
 import './App.css'
-import {TracksList} from "./components/TracksList.tsx";
-import {TrackDetails} from "./components/TrackDetails.tsx";
-import {Header} from "./components/Header.tsx";
-import {SidebarMenu} from "./components/SidebarMenu.tsx";
-import {PageTitle} from "./components/PageTitle.tsx";
-import {Footer} from "./components/Footer.tsx";
+import {TracksList} from "./ui/TracksList.tsx";
+import {TrackDetails} from "./ui/TrackDetails.tsx";
+import {Header} from "./ui/Header.tsx";
+import {SidebarMenu} from "./ui/SidebarMenu.tsx";
+import {PageTitle} from "./ui/PageTitle.tsx";
+import {Footer} from "./ui/Footer.tsx";
 import {useState} from "react";
 
 
