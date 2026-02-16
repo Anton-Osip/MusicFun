@@ -1,55 +1,56 @@
-import {useEffect, useState} from "react";
-import {TrackItem} from "./TrackItem.tsx";
-import {getTracks, type TrackListItemOutput} from "../dal/api.ts";
-
+import { useTracks } from '../bll/useTracks.ts'
+import { TrackItem } from './TrackItem.tsx'
 
 type Props = {
-    trackId: string | null
-    onSelectedTrackId: (id: string | null) => void
+	trackId: string | null
+	onSelectedTrackId: (id: string | null) => void
 }
 
-export const TracksList = ({onSelectedTrackId, trackId}: Props) => {
-    const [tracks, setTracks] = useState<TrackListItemOutput[] | null>(null)
+export const TracksList = ({ onSelectedTrackId, trackId }: Props) => {
+	const { tracks, refresh } = useTracks()
 
-    useEffect(() => {
-        getTracks().then(data => setTracks(data.data || null))
-    }, [])
+	const handleReset = () => {
+		onSelectedTrackId(null)
+	}
+	const handleClick = (trackId: string | null) => {
+		onSelectedTrackId(trackId)
+	}
 
-    if (tracks === null) {
-        return <div>
-            <span>Loading...</span>
-        </div>
-    }
+	const handleRefreshClick = () => {
+		refresh()
+	}
 
-    if (tracks.length === 0) {
-        return <div>
-            <span>No track</span>
-        </div>
-    }
-    const handleReset = () => {
-        onSelectedTrackId(null)
-    }
-    const handleClick = (trackId: string | null) => {
-        onSelectedTrackId(trackId)
-    }
+	if (tracks === null) {
+		return (
+			<div>
+				<span>⏱️Loading...</span>
+			</div>
+		)
+	}
 
-    return (
-        <div>
-            <button onClick = {handleReset}>
-                RESET
-            </button>
-            <hr/>
-            <ul>
-                {tracks.map((track) => (
-                        <TrackItem
-                            key = {track.id}
-                            isSelected = {trackId === track.id}
-                            track = {track}
-                            onSelect = {handleClick}
-                        />
-                    )
-                )}
-            </ul>
-        </div>
-    )
+	if (tracks.length === 0) {
+		return (
+			<div>
+				<span>😕No track</span>
+			</div>
+		)
+	}
+
+	return (
+		<div>
+			<button onClick={handleReset}>RESET</button>
+			<button onClick={handleRefreshClick}>REFReSH</button>
+			<hr />
+			<ul>
+				{tracks.map(track => (
+					<TrackItem
+						key={track.id}
+						isSelected={trackId === track.id}
+						track={track}
+						onSelect={handleClick}
+					/>
+				))}
+			</ul>
+		</div>
+	)
 }
