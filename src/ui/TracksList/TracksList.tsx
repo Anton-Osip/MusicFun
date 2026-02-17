@@ -1,6 +1,6 @@
-import { useTracks } from '../bll/useTracks.ts'
-import { TrackItem } from './TrackItem.tsx'
-
+import { useTracks } from '../../bll/useTracks.ts'
+import { TrackItem } from '../TrackItem/TrackItem.tsx'
+import styles from './TracksList.module.css'
 type Props = {
 	trackId: string | null
 	onSelectedTrackId: (id: string | null) => void
@@ -37,7 +37,7 @@ export const TracksList = ({ onSelectedTrackId, trackId }: Props) => {
 	}
 
 	return (
-		<div>
+		<div className={styles.tracks}>
 			<button onClick={handleReset}>RESET</button>
 			<button onClick={handleRefreshClick}>REFReSH</button>
 			<hr />

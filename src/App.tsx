@@ -1,11 +1,11 @@
 import './App.css'
 import { useTrackSelection } from './bll/useTrackSelection.ts'
-import { Footer } from './ui/Footer.tsx'
-import { Header } from './ui/Header.tsx'
-import { PageTitle } from './ui/PageTitle.tsx'
-import { SidebarMenu } from './ui/SidebarMenu.tsx'
-import { TrackDetails } from './ui/TrackDetails.tsx'
-import { TracksList } from './ui/TracksList.tsx'
+import { Footer } from './ui/Footer/Footer.tsx'
+import { Header } from './ui/Header/Header.tsx'
+import { PageTitle } from './ui/PageTitle/PageTitle.tsx'
+import { SidebarMenu } from './ui/SidebarMenu/SidebarMenu.tsx'
+import { TrackDetails } from './ui/TrackDetails/TrackDetails.tsx'
+import { TracksList } from './ui/TracksList/TracksList.tsx'
 
 function App() {
 	const { trackId, setTrackId } = useTrackSelection()
@@ -16,8 +16,8 @@ function App() {
 
 	return (
 		<>
-			<Header />
 			<SidebarMenu />
+			<Header />
 			<PageTitle />
 			<div style={{ display: 'flex' }}>
 				<TracksList onSelectedTrackId={onSelectedTrackId} trackId={trackId} />
